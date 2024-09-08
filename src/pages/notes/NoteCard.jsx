@@ -76,7 +76,6 @@ export default function NoteCard({ note }) {
    };
 
    const createdDate = moment(note.updatedAt).format('MMM Do YY');
-   // console.log(createdDate);
 
    const createdTime = moment(note.updatedAt).startOf('minute').fromNow();
 
