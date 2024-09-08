@@ -7,6 +7,7 @@ import useOnClickOutside from '../../hooks/useOutSideClick';
 
 export default function UserMenu({ setShowUserMenu }) {
    const { authUser } = useProfile();
+
    const { handleUserLogout } = useAuth();
    const userMenuRef = useRef(null);
 
@@ -19,7 +20,9 @@ export default function UserMenu({ setShowUserMenu }) {
          >
             <div className="px-4 py-3 text-xs text-gray-900">
                <div>{authUser?.username}</div>
-               <div className="font-medium truncate">{authUser?.email}</div>
+               <div className="font-medium truncate lowercase">
+                  {authUser?.email}
+               </div>
             </div>
             <ul
                className="py-2 text-xs text-gray-700"

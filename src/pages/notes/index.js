@@ -11,6 +11,7 @@ import useNote from '../../hooks/useNote';
 
 export default function NotesPage() {
    const { isNoteOpen } = useNote();
+
    const userId = getDataFromLc('user_id');
 
    const {

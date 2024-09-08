@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import axiosInstance from '../../utils/axios';
 import { sendNotification } from '../../utils/notifications';
+import GoogleSignInButton from '../../components/shared/GoogleSignInButton';
 
 export default function SignupPage() {
    const {
@@ -47,38 +48,49 @@ export default function SignupPage() {
 
    return (
       <BasicFormLayout>
-         <form className="custom_form" onSubmit={handleSubmit(onSubmit)}>
-            <h2>Sign up</h2>
-
+         <form
+            className="custom_form flex_center"
+            onSubmit={handleSubmit(onSubmit)}
+         >
+            {' '}
             <div className="space-y-8">
-               {SignupFormInputsList?.map((input) => (
-                  <div key={input.name} className="space-y-2">
-                     <div className="flex items-center gap-3 py-2 border-b">
-                        <span>{input.icon}</span>
-                        <input
-                           {...register(input.name, input.rules)}
-                           autoComplete="off"
-                           placeholder={input.placeholder || ''}
-                        />
+               <h2>Sign up</h2>
+
+               <div className="space-y-8">
+                  {SignupFormInputsList?.map((input) => (
+                     <div key={input.name} className="space-y-2">
+                        <div className="flex items-center gap-3 py-2 border-b">
+                           <span>{input.icon}</span>
+                           <input
+                              {...register(input.name, input.rules)}
+                              autoComplete="off"
+                              placeholder={input.placeholder || ''}
+                           />
+                        </div>
+                        {errors[input.name] && (
+                           <FormFieldError
+                              message={errors[input.name].message}
+                           />
+                        )}
                      </div>
-                     {errors[input.name] && (
-                        <FormFieldError message={errors[input.name].message} />
-                     )}
-                  </div>
-               ))}
+                  ))}
+               </div>
+               <button
+                  type="submit"
+                  className="btn w-full"
+                  disabled={isFormSubmitting}
+               >
+                  {isFormSubmitting ? 'Loading...' : 'Submit'}
+               </button>
+
+               <GoogleSignInButton />
+
+               <FormBottomText
+                  text="Already have an account ?"
+                  link="/login"
+                  linkText="Sign in"
+               />
             </div>
-            <button
-               type="submit"
-               className="btn w-full"
-               disabled={isFormSubmitting}
-            >
-               {isFormSubmitting ? 'Loading...' : 'Submit'}
-            </button>
-            <FormBottomText
-               text="Already have an account ?"
-               link="/login"
-               linkText="Sign in"
-            />
          </form>
       </BasicFormLayout>
    );

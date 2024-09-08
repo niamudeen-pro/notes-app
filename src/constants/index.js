@@ -85,6 +85,7 @@ export const FormInputsList = [
       isLogin: true,
       isSignup: true,
       isProfile: true,
+      isForgotPassword: true,
    },
    {
       name: 'password',
@@ -104,7 +105,9 @@ export const FormInputsList = [
       },
       isLogin: true,
       isSignup: true,
+      isResetPassword: true,
    },
+
    {
       name: 'phone',
       label: 'Phone',

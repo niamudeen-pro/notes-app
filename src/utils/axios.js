@@ -13,14 +13,14 @@ axiosInstance.interceptors.request.use(
    async function (config) {
       if (!['/auth/login', '/auth/register'].includes(config.url)) {
          config.headers['Authorization'] = `Bearer ${getDataFromLc(
-            'access_token'
+            'access_token',
          )}`;
       }
       return config;
    },
    function (error) {
       return Promise.reject(error);
-   }
+   },
 );
 
 axiosInstance.interceptors.response.use(
@@ -42,7 +42,7 @@ axiosInstance.interceptors.response.use(
          }
       }
       return Promise.reject(error);
-   }
+   },
 );
 
 export default axiosInstance;

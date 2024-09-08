@@ -19,7 +19,7 @@ export default function useNote() {
    const { mutate: deleteNote, isPending: isNoteDeleted } = useMutation({
       mutationFn: async () => {
          const response = await axiosInstance.patch(
-            `/notes/delete/${activeNoteId}`
+            `/notes/delete/${activeNoteId}`,
          );
          return response;
       },
@@ -55,7 +55,7 @@ export default function useNote() {
       mutationFn: async (data) => {
          const response = await axiosInstance.patch(
             `/notes/edit/${activeNoteId}`,
-            data
+            data,
          );
          return response;
       },

@@ -10,6 +10,9 @@ import {
 } from '../pages/index';
 import ProtectedRoutes from './ProtectedRoutes';
 import PublicRoutes from './PublicRoutes';
+import ForgotPassword from '../pages/auth/ForgotPassword';
+import TestPage from '../pages/TestPage';
+import ResetPassword from '../pages/auth/ResetPassword';
 
 // isPrivate ===>  to make routes private or protected
 // isHidden ===> to make routes hidden
@@ -48,6 +51,23 @@ export const ALL_ROUTES = [
       title: 'profile',
       element: <ProfilePage />,
       isPrivate: true,
+   },
+   {
+      id: 6,
+      path: '/forgot-password',
+      element: <ForgotPassword />,
+   },
+   {
+      id: 6,
+      path: '/test-page',
+      title: 'test',
+      element: <TestPage />,
+      isPrivate: true,
+   },
+   {
+      id: 7,
+      path: '/reset-password/:token',
+      element: <ResetPassword />,
    },
 ];
 

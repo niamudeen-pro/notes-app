@@ -16,6 +16,27 @@ export default function useProfile() {
       setValue,
    } = useForm();
 
+   // const user = auth?.currentUser;
+   // console.log(user);
+
+   // const { mutate: authGoogle } = useMutation({
+   //    mutationFn: async () => {
+   //       const response = await axiosInstance.post(`/auth/google`, {
+   //          email: user?.email,
+   //          username: user?.displayName,
+   //       });
+   //       return response?.data?.userId || null;
+   //    },
+   //    onSuccess: (userId) => {
+   //       console.log(userId);
+   //       setDataIntoLc('user_id', userId);
+   //    },
+   // });
+
+   // useEffect(() => {
+   //    authGoogle();
+   // }, [user?.email]);
+
    const [isEditToggleActive, setIsEditToggleActive] = useState(false);
    const [file, setFile] = useState(null);
    const [thumbnail, setThumbnail] = useState(null);

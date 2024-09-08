@@ -1,18 +1,16 @@
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 
-import { _config, FormInputsList } from '../../constants';
+import { FormInputsList } from '../../constants';
 
 import FormFieldError from '../../components/shared/FormFieldError';
-import FormBottomText from '../../components/shared/FormBottomText';
 import BasicFormLayout from '../../components/shared/BasicFormLayout';
 
 import axiosInstance from '../../utils/axios';
-import { setDataIntoLc } from '../../utils/helper';
 import { sendNotification } from '../../utils/notifications';
 
-export default function LoginPage() {
+export default function ForgotPassword() {
    const {
       register,
       handleSubmit,
@@ -20,22 +18,21 @@ export default function LoginPage() {
       reset,
    } = useForm();
 
-   const LoginFormInputsList =
-      (FormInputsList && FormInputsList.filter((input) => input.isLogin)) || [];
-
-   const navigate = useNavigate();
+   const ForgotPasswordInputs =
+      (FormInputsList &&
+         FormInputsList.filter((input) => input.isForgotPassword)) ||
+      [];
 
    const { isPending: isFormSubmitting, mutate } = useMutation({
       mutationFn: async (payload) => {
-         const response = await axiosInstance.post('/auth/login', payload);
+         const response = await axiosInstance.post(
+            '/auth/forgot-password',
+            payload
+         );
          return response?.data || {};
       },
       onSuccess: (data) => {
-         const { userId, access_token } = data;
-         setDataIntoLc('access_token', access_token);
-         setDataIntoLc('user_id', userId);
-         navigate(_config.REDIRECT.LOGIN_SUCCESS, { replace: true });
-         sendNotification('success', 'User logged in successfully');
+         sendNotification('success', 'Password reset link sent to your email');
          reset();
       },
       onError: (error) => {
@@ -47,6 +44,7 @@ export default function LoginPage() {
    });
 
    const onSubmit = (data) => {
+      console.log('data: ', data);
       if (!data) return;
 
       mutate(data);
@@ -59,10 +57,10 @@ export default function LoginPage() {
             onSubmit={handleSubmit(onSubmit)}
          >
             <div className="space-y-8">
-               <h2>Sign in</h2>
+               <h2>Forgot Password</h2>
 
                <div className="space-y-8">
-                  {LoginFormInputsList?.map((input) => (
+                  {ForgotPasswordInputs?.map((input) => (
                      <div key={input.name} className="space-y-2">
                         <div className="flex items-center gap-3 py-2 border-b">
                            <span>{input.icon}</span>
@@ -81,7 +79,6 @@ export default function LoginPage() {
                      </div>
                   ))}
                </div>
-
                <button
                   type="submit"
                   className="btn w-full"
@@ -89,17 +86,10 @@ export default function LoginPage() {
                >
                   {isFormSubmitting ? 'Loading...' : 'Submit'}
                </button>
-
-               <div className="space-y-2">
-                  <Link to="/forgot-password" className="cursor-pointer">
-                     <p className="text-main_clr">Forgot password ?</p>
+               <div>
+                  <Link to="/login" className="cursor-pointer">
+                     <p className="text-main_clr">Back to login ?</p>
                   </Link>
-
-                  <FormBottomText
-                     text="Not registered yet ?"
-                     link="/signup"
-                     linkText="Create an account"
-                  />
                </div>
             </div>
          </form>

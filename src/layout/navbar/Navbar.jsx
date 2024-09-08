@@ -68,7 +68,7 @@ export default function Navbar() {
                               </Link>
                            </li>
                         );
-                     }
+                     },
                   )}
 
                   {/* user menu will be handled here */}
