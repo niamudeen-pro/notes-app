@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import axiosInstance from '../../utils/axios';
 import { sendNotification } from '../../utils/notifications';
-import GoogleSignInButton from '../../components/shared/GoogleSignInButton';
+// import GoogleSignInButton from '../../components/shared/GoogleSignInButton';
 
 export default function SignupPage() {
    const {
@@ -65,6 +65,7 @@ export default function SignupPage() {
                               {...register(input.name, input.rules)}
                               autoComplete="off"
                               placeholder={input.placeholder || ''}
+                              type={input.type || 'text'}
                            />
                         </div>
                         {errors[input.name] && (
@@ -83,7 +84,7 @@ export default function SignupPage() {
                   {isFormSubmitting ? 'Loading...' : 'Submit'}
                </button>
 
-               <GoogleSignInButton />
+               {/* <GoogleSignInButton /> */}
 
                <FormBottomText
                   text="Already have an account ?"
