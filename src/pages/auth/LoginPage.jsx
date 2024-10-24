@@ -32,6 +32,7 @@ export default function LoginPage() {
       },
       onSuccess: (data) => {
          const { userId, access_token } = data;
+         if (!userId || !access_token) return;
          setDataIntoLc('access_token', access_token);
          setDataIntoLc('user_id', userId);
          navigate(_config.REDIRECT.LOGIN_SUCCESS, { replace: true });
