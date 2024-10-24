@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { getDataFromLc, setDataIntoLc } from './helper';
 import { refreshToken } from '../services/api/user';
+import { sendNotification } from './notifications';
 
 const axiosInstance = axios.create({
    baseURL: process.env.REACT_APP_BASE_URL,
@@ -28,9 +29,12 @@ axiosInstance.interceptors.response.use(
       return response;
    },
    async function (error) {
+       sendNotification('error', error?.response?.data?.message);
       const originalRequest = error.config;
       if (error?.response?.status === 401) {
          const userId = getDataFromLc('user_id');
+
+         if(!userId) return
          const response = await refreshToken(userId);
 
          const token = response?.data?.token || null;
